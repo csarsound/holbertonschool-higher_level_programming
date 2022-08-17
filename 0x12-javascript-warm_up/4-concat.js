@@ -1,3 +1,4 @@
 #!/usr/bin/node
-const { argv } = require('process');
-console.log(argv[2] ? `${argv[2]}` : 'No argument');
+const argv1 = process.argv[2];
+const argv2 = process.argv[3];
+console.log('%s is %s', argv1, argv2);
