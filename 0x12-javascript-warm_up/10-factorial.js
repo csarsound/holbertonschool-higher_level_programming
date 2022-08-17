@@ -1,9 +1,9 @@
 #!/usr/bin/node
 function factorial (num) {
-if (num === 0) {
-  return 1;
-}
-return num * factorial(num - 1);
+  if (num === 0) {
+    return 1;
+  }
+  return num * factorial(num - 1);
 }
 let num;
 if (isNaN(process.argv[2])) {
