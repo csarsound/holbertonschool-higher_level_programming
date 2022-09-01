@@ -1,23 +1,29 @@
 #!/usr/bin/python3
-""" script that list states
+"""
+Script that lists all `cities` from the database `hbtn_0e_4_usa`.
+Arguments:
+    mysql username (str)
+    mysql password (str)
+    database name (str)
 """
 
-
+import sys
 import MySQLdb
-from sys import argv
 
 if __name__ == "__main__":
+    mySQL_u = sys.argv[1]
+    mySQL_p = sys.argv[2]
+    db_name = sys.argv[3]
 
-    userr = argv[1]
-    passw = argv[2]
-    namd = argv[3]
-    lc = "localhost"
-
-    db = MySQLdb.connect(host=lc, port=3306, user=userr, passwd=passw, db=namd)
+    # By default, it will connect to localhost:3306
+    db = MySQLdb.connect(user=mySQL_u, passwd=mySQL_p, db=db_name)
     cur = db.cursor()
-    exe = cur.execute("SELECT cities.id, cities.name, states.name FROM cities LEFT JOIN\
-        states ON cities.state_id=states.id ORDER BY cities.id")
-    for x in cur.fetchall():
-        print(x)
-    db.close()
-    cur.close()
+
+    cur.execute("SELECT c.id, c.name, s.name \
+                 FROM cities c INNER JOIN states s \
+                 ON c.state_id = s.id \
+                 ORDER BY c.id")
+    rows = cur.fetchall()
+
+    for row in rows:
+        print(row)
